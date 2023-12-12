@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Services
+{% endblock %}
+{% block content %}
+<div>
+    <div>
+        <nav class="navbar navbar-dark navbar-expand-lg bg-dark" style="height:75px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">SBI Banking</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'bankingapp:home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'bankingapp:services' %}">Services</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Branches
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Thiruvananthapuram">Thiruvananthapuram</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Alappuzha">Alappuzha</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Ernakulam">Ernakulam</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Malappuram">Malappuram</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Kozhikode">Kozhikode</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Thrissur">Thrissur</a></li>
+                        </ul>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <h6 class="pt-2" style="color:white">Hello {{user.username}}   </h6>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'bankingapp:logout' %}"><button type="button" class="btn btn-primary" >Logout</button></a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bankingapp:signup' %}">Signup</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'bankingapp:login' %}"><button type="button" class="btn btn-primary" >Login</button></a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'img/mobile-recharge.jpg' %}" class="card-img-top" alt="mobile recharge">
+                   <div class="card-body">
+                       <h4 class="card-title">Mobile Recharge</h4>
+                       <a href="https://pay.google.com" class="btn btn-primary">Recharge</a>
+                   </div>
+               </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'img/electricity bill.png' %}" class="card-img-top" alt="electricity bill">
+                   <div class="card-body">
+                       <h4 class="card-title">Electricity bill</h4>
+                       <a href="https://pay.google.com" class="btn btn-primary">Electricity bill</a>
+                   </div>
+               </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'img/money transfer.png' %}" class="card-img-top" alt="money transfer">
+                   <div class="card-body">
+                       <h4 class="card-title">Online Shopping</h4>
+                       <a href="https://www.amazon.in" class="btn btn-primary">Shopping</a>
+                   </div>
+               </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'img/rent.jpg' %}" class="card-img-top" alt="rent">
+                    <div class="card-body">
+                        <h4 class="card-title">Pay Rent</h4>
+                        <a href="https://pay.google.com" class="btn btn-primary">Rent</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'img/loan.png' %}" class="card-img-top" alt="loan">
+                    <div class="card-body">
+                        <h4 class="card-title">Loan</h4>
+                        <a href="#" class="btn btn-primary">Loan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="pt-5 ps-3">-->
+
+<!--    <h1>Our services</h1>-->
+<!--    <ul>-->
+<!--        <li>Deposit Services</li>-->
+<!--        <li>Loan Services</li>-->
+<!--        <li>Electronic Banking</li>-->
+<!--        <li>Payment Services</li>-->
+<!--        <li>Investment Services</li>-->
+<!--        <li>Insurance Services</li>-->
+<!--        <li>Retirement Planning</li>-->
+<!--        <li>International Banking</li>-->
+<!--        <li>Safety Deposit Boxes</li>-->
+<!--        <li>Financial Advisory Services</li>-->
+<!--        <li>Educational Services</li>-->
+<!--        <li>Corporate Banking Services</li>-->
+<!--    </ul>-->
+
+</div>
+{% endblock %}

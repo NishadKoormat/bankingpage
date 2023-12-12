@@ -1,0 +1,362 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Details
+{% endblock %}
+{% block content %}
+<script>
+    function populateBranches() {
+        const districtSelect = document.getElementById('district');
+        const branchSelect = document.getElementById('branch');
+
+        // Define branch options for each district
+        const branchOptions = {
+            'Choose':['----'],
+            'Ernakulam': ['Aluva', 'Edapally','Palarivattom'],
+            'Alappuzha': ['Cherthala', 'Thakazhy','Vallikunnam'],
+            'Idukki': ['Mankulam','Thodupuzha','Thekkady'],
+            'Kannur':['Taliparamba','Payyanur','Panoor'],
+            'Kasargod':['Kayyur','kadumeni','cheruvathur'],
+            'Kollam':['Chinakkada','Pathanapuram','Irumpupalam'],
+            'Kottayam':['Kottayam','lathurprayar','Kidangoor'],
+            'Kozhikode':['Chalappuram','Koduvally','Kallai'],
+            'Malappuram':['edevannapara','areekode','manjeri'],
+            'Palakkad':['Koduvayur','Melmuri','Mangalam'],
+            'Pathanamthitta':['Thiruvalla','Kozhencherri','Kuttur'],
+            'Thiruvananthapuram':['Kannanmoola','Aakulam','Vellayambalam'],
+            'Thrissur':['Guruvayur','Mannuthy','Naickanal'],
+            'Wayanad':['Pallikkunnu','Kaniyambetta','Kalpetta'],
+
+
+        };
+
+        // Clear the current options
+        branchSelect.innerHTML = '';
+
+        // Populate branch options based on selected district
+        const selectedDistrict = districtSelect.value;
+        const branches = branchOptions[selectedDistrict] || [];
+
+        for (const branch of branches) {
+            const option = document.createElement('option');
+            option.text = branch;
+            branchSelect.add(option);
+        }
+    }
+
+
+</script>
+
+
+<div>
+    <div>
+        <nav class="navbar navbar-dark navbar-expand-lg bg-dark" style="height:75px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">SBI Banking</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'bankingapp:home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bankingapp:services' %}">Services</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Branches
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Thiruvananthapuram">Thiruvananthapuram</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Alappuzha">Alappuzha</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Ernakulam">Ernakulam</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Malappuram">Malappuram</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Kozhikode">Kozhikode</a></li>
+                            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Thrissur">Thrissur</a></li>
+                        </ul>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <h6 class="pt-2" style="color:white">Hello {{user.username}}   </h6>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'bankingapp:logout' %}"><button type="button" class="btn btn-primary" >Logout</button></a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bankingapp:signup' %}">Signup</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'bankingapp:login' %}"><button type="button" class="btn btn-primary" >Login</button></a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="details">
+    <div class="container-fluid p-4">
+        <div class="row">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row form-row">
+                        <div class="form-group col-12 col-sm-6 col-md-4 col-lg-6">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" name="fname" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group col-12 col-sm-6 col-md-4 col-lg-6">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control" name="lname" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                        <br>
+                        <div class="row form-row">
+                            <div class="form-group col-12 col-sm-6 col-md-4 col-lg-6">
+                                <label for="Address">Address</label>
+                                <input type="text" class="form-control" name="address" placeholder="permanent address" required>
+                            </div>
+                            <div class="form-group col-12 col-sm-6 col-md-4 col-lg-4">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" name="city" placeholder="City" required>
+                            </div>
+                            <div class="form-group col-12 col-sm-6 col-md-4 col-lg-2">
+                                <label for="zipcode">Zip Code</label>
+                                <input type="number" class="form-control" id="zip" name="zip" placeholder="Zip Code" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div style="height: 10px; width: 100%;"></div>
+
+                        <div class="row form-row">
+                            <div class="form-group col-12 col-sm12 col-md-6 col-lg-6">
+                                <label for="District">District</label>
+                                <select id="district" name="district" onchange="populateBranches()" required>
+                                    <option value="Choose">--------</option>
+                                    <option value="Alappuzha">Alappuzha</option>
+                                    <option value="Ernakulam">Ernakulam</option>
+                                    <option value="Idukki">Idukki</option>
+                                    <option value="Kannur">Kannur</option>
+                                    <option value="Kasaragod">Kasaragod</option>
+                                    <option value="Kollam">Kollam</option>
+                                    <option value="Kottayam">Kottayam</option>
+                                    <option value="Kozhikode">Kozhikode</option>
+                                    <option value="Malappuram">Malappuram</option>
+                                    <option value="Palakkad">Palakkad</option>
+                                    <option value="Pathanamthitta">Pathanamthitta</option>
+                                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                    <option value="Thrissur">Thrissur</option>
+                                    <option value="Wayanad">Wayanad</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="branch">Branch</label>
+                                <select id="branch" name="branch" required>
+                                    <option value="----">----</option>
+
+                                    <option value="Thakazhy">Thakazhy</option>
+                                    <option value="Cherthala">Cherthala</option>
+                                    <option value="Kayamkulam">Kayamkulam</option>
+
+                                    <option value="Kochi ">Kochi </option>
+                                    <option value="Kothamangalam">Kothamangalam</option>
+                                    <option value="Aluva">Aluva</option>
+
+                                    <option value="Thodupuzha">Thodupuzha</option>
+                                    <option value="Munnar">Munnar</option>
+                                    <option value="Kumily">Kumily</option>
+
+                                    <option value="Thalassery">Thalassery</option>
+                                    <option value="Payyannur">Payyannur</option>
+                                    <option value="Mattannur">Mattannur</option>
+
+                                    <option value="Nileshwaram">Nileshwaram</option>
+                                    <option value="Manjeshwar">Manjeshwar</option>
+                                    <option value="Kanhangad">Kanhangad</option>
+
+                                    <option value="Paravur">Paravur</option>
+                                    <option value="Karunagappally">Karunagappally</option>
+                                    <option value="Punalur">Punalur</option>
+
+                                    <option value="Changanassery">Changanassery</option>
+                                    <option value="Vaikom">Vaikom</option>
+                                    <option value="Palai">Palai</option>
+
+                                    <option value="Vadakara">Vadakara</option>
+                                    <option value="Thamarassery">Thamarassery</option>
+                                    <option value="Ramanattukara">Ramanattukara</option>
+
+                                    <option value="Manjeri">Manjeri</option>
+                                    <option value="Tirur">Tirur</option>
+                                    <option value="Perinthalmanna">Perinthalmanna</option>
+
+                                    <option value="Ottapalam">Ottapalam</option>
+                                    <option value="Mannarghat">Mannarghat</option>
+                                    <option value="Chittur-Thathamangalam">Chittur-Thathamangalam</option>
+
+                                    <option value="Adoor">Adoor</option>
+                                    <option value="Kozhencherry">Kozhencherry</option>
+                                    <option value="Thiruvalla">Thiruvalla</option>
+
+                                    <option value="Nedumangad">Nedumangad</option>
+                                    <option value="Neyyattinkara">Neyyattinkara</option>
+                                    <option value="Attingal">Attingal</option>
+
+                                    <option value="Chalakudy">Chalakudy</option>
+                                    <option value="Irinjalakuda">Irinjalakuda</option>
+                                    <option value="Kodungallur">Kodungallur</option>
+
+                                    <option value="Kalpetta">Kalpetta</option>
+                                    <option value="Sulthan Bathery">Sulthan Bathery</option>
+                                    <option value="Mananthavady">Mananthavady</option>
+                                </select>
+                            </div>
+                            <div style="height: 20px; width: 100%;"></div>
+
+                            <div class="row form-row">
+                                <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label for="dob">Date of Birth</label>
+                                    <br>
+                                    <input type="date" id="dobinput" name="dob" required>
+                                </div>
+                                <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label for="Age">Age</label>
+                                    <br>
+                                    <input type="number" id="ageinput" name="age" placeholder="Age" required>
+                                </div>
+                            </div>
+                            <div style="height: 20px; width: 100%;"></div>
+                            <div class="row form-row">
+                                <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label for="gender">Gender</label>
+                                    <input type="radio" id="male" name="gender" value="Male">Male
+                                    <input type="radio" id="female" name="gender" value="female">Female
+                                </div>
+                                <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label for="phone">Phone Number</label>
+                                    <br>
+                                    <input type="number" id="phone" name="phone" placeholder="Phone Number" required>
+                                </div>
+                            </div>
+                            <div style="height:20px; width:100%"></div>
+                            <div class="row form-row">
+                                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-9">
+                                    <label for="bankname">Bank Name</label>
+                                    <input type="text" class="form-control" name="bankname" placeholder="Bank Name" required>
+                                </div>
+                            </div>
+                            <div style="height:20px; width:100%;"></div>
+                            <div class="row form-row">
+                                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label for="accountnumber">Account Number</label>
+                                    <input type="number" class="form-control" id="acnumber" name="acnumber" placeholder="Account Number" required>
+                                </div>
+                                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <label for="IFSC">IFSC code</label>
+                                    <input type="text" class="form-control" id="ifsc" name="ifsc" placeholder="IFSC Code" required>
+                                </div>
+                            </div>
+                            <div style="height:30px; width:100%;"></div>
+                            <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
+                                <label for="email">Email</label><br>
+                                <input type="email" name="email" placeholder="email" required><br>
+                            </div>
+                            <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
+                                <label for="account">Type</label>
+                                <br>
+                                <select id="account-type" name="account-type" required>
+                                    <option value="Choose">-----</option>
+                                    <option value="savings account">Savings Account</option>
+                                    <option value="Current account">Current Account</option>
+                                </select>
+                            </div>
+                            <div style="height:20px; width:100%;"></div>
+                            <div class="form-group col-12 col-sm-6 col-md-4 col-lg-6">
+                                <label for="materials">Material Provided:</label>
+                                <input type="checkbox" id="debit-card" name="materials" value="debit card" checked>Debit Card
+                                <input type="checkbox" id="credit-card" name="materials" value="credit card" >Credit Card
+                                <input type="checkbox" id="cheque-box" name="materials" value="cheque box" >Cheque Book
+                            </div>
+                            <center>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit" onclick="submitting()" >Submit</button>
+                                </div>
+                            </center>
+                            <div style="height:30px; width:100%;"></div>
+                        </div>
+                </form>
+        </div>
+    </div>
+</div>
+<script>
+    function submitting() {
+        const numberInput = parseInt(document.getElementById('phone').value);
+        const zipCode = document.getElementById('zip').value;
+        const district = document.getElementById('district').value;
+        const ifsc = document.getElementById('ifsc').value;
+        const acnumber = document.getElementById('acnumber').value;
+        const account_type = document.getElementById('account-type').value;
+        const ageInput = document.getElementById('ageInput').value;
+        const dobInput = document.getElementById('dobInput').value;
+        const currentDate = new Date();
+        const dob = new Date(dobInput);
+        const age = currentDate.getFullYear() - dob.getFullYear();
+
+        var genderRadios = document.getElementsByName('gender');
+        var isChecked = false;
+
+        for (var i = 0; i < genderRadios.length; i++) {
+            if (genderRadios[i].checked) {
+                isChecked = true;
+                break;
+                }
+            }
+
+            if (!isChecked) {
+                alert('Please select a gender.');
+                return false;
+            }
+
+        if (numberInput.toString().length != 10 || !/^\d+$/.test(numberInput)) {
+            alert('Enter valid number')
+
+            }
+        else if(zipCode.toString().length != 6 || !/^\d+$/.test(zipCode)) {
+            alert('Enter valid Zip code')
+        }
+        else if(ifsc.toString().length != 11) {
+            alert('Enter valid IFSC code')
+        }
+        else if(district === 'Choose' ) {
+            alert('Choose any district')
+
+        }
+        else if(account_type === 'Choose') {
+            alert('Choose Type of account')
+
+        }
+        else if (age != ageInput) {
+            alert("Age or Date Of Birth is not valid")
+        }
+
+        else if (acnumber.toString().length <= 8 || acnumber.toString().length > 12 || !/^\d+$/.test(acnumber) ) {
+        alert('Enter a valid account number between 8 and 12 digits');
+        }
+
+//
+//           else if(debit=='' || credit == '' || cheque == '') {
+//             alert('Choose any material')
+//           }
+        else {
+            alert('Submit form')
+        }
+    }
+
+</script>
+{% endblock %}

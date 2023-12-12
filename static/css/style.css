@@ -1,0 +1,73 @@
+*{
+    margin:0;
+    box-sizing: border-box;
+}
+.register,.login{
+    background: #edeef0;
+    height:750px;
+}
+.re-box,.lo-box{
+    width: 400px;
+    height:100%;
+    background: #ffff;
+    border-radius: 10px;
+    font-family: SFProText-Semi-bold, Helvetica, Arial, sans-serif;
+    box-shadow: -2px 2px 2px  #d0d7de, 2px 2px 2px #d0d7de;
+}
+.box{
+    height:45px;
+    border:2px solid #e1e3e1;
+    border-radius:10px;
+    padding-left:15px;
+    width:90%;
+    margin-top:10px;
+
+}
+.box:focus{
+    border:2px solid black;
+}
+.btn-submit{
+    margin-top:10px;
+    width:60%;
+}
+.here{
+    text-decoration:none;
+}
+.here:hover{
+    text-decoration:underline;
+}
+.card-body{
+    text-align:center;
+}
+.detail-box{
+    width: 80%;
+    height:100%;
+    background: #ffff;
+    border-radius: 10px;
+    font-family: SFProText-Semi-bold, Helvetica, Arial, sans-serif;
+    box-shadow: -2px 2px 2px  #d0d7de, 2px 2px 2px #d0d7de;
+}
+.de-box{
+    height:45px;
+    border:2px solid #e1e3e1;
+    border-radius:10px;
+    padding-left:15px;
+    width:90%;
+    margin-top:10px;
+
+}
+
+.footer{
+    background-color:black;
+    color:white;
+}
+.b-link {
+    color:white;
+    text-decoration:none;
+}
+.b-link:hover {
+    text-decoration:underline;
+}
+
+
+
